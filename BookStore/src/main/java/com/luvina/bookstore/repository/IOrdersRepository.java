@@ -4,13 +4,17 @@ package com.luvina.bookstore.repository;
 import com.luvina.bookstore.dto.OrdersDTO;
 import com.luvina.bookstore.model.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+
 @Repository
+@Transactional
 public interface IOrdersRepository extends JpaRepository<Orders, Long> {
 
     @Query(nativeQuery = true,
@@ -35,6 +39,12 @@ public interface IOrdersRepository extends JpaRepository<Orders, Long> {
             "AND od.is_remove = false " +
             "AND c.is_remove = false " +
             "AND o.is_remove = false " +
-            "AND b.is_remove = false")
+            "AND b.is_remove = false order by o.id desc")
     List<OrdersDTO> getAllOrdersByCusId(@Param("id") Long id);
+
+
+    @Query(nativeQuery = true,
+    value = "UPDATE orders SET customer_id = :idCustomer where id = :id")
+    @Modifying
+    void updateCustomer(@Param("id") Long id, @Param("idCustomer") Long idCustomer);
 }

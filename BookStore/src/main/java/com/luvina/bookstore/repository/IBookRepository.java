@@ -24,4 +24,9 @@ public interface IBookRepository extends JpaRepository<Book, Long> {
     @Modifying
     @Query(nativeQuery = true, value = "UPDATE book set is_remove = true where id = :id")
     void removeBookById(@Param("id") Long id);
+
+    @Modifying
+    @Query(nativeQuery = true,
+    value = "UPDATE  book set quantity = :quantityBook where id = :id")
+    void upDateQuantity(@Param("id") Long id, @Param("quantityBook") int quantityBook);
 }

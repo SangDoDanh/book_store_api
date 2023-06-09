@@ -41,4 +41,9 @@ public class BookService implements IBookService {
     public void removeBookById(Long id) {
         bookRepository.removeBookById(id);
     }
+
+    @Override
+    public void upDateQuantity(Long id, int quantityBook) {
+        bookRepository.upDateQuantity(id, quantityBook);
+    }
 }

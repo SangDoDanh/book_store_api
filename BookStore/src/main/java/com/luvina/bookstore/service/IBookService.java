@@ -16,4 +16,6 @@ public interface IBookService {
 
 
     void removeBookById(Long id);
+
+    void upDateQuantity(Long id, int quantityBook);
 }

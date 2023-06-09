@@ -18,6 +18,15 @@ public class CustomerRestController {
     @Autowired
     private ICustomerService customerService;
 
+    @GetMapping
+    public ResponseEntity<?> getAllCustomer() {
+        List<CustomerDTO> customerDTOS = customerService.getAll();
+        if(customerDTOS.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        return new ResponseEntity<>(customerDTOS, HttpStatus.OK);
+    }
+
     @GetMapping("/orders")
     public ResponseEntity<List<CustomerDTO>> getAllCustomersHasOrders() {
         List<CustomerDTO> customerDTOS = customerService.getAllCustomerHasOrders();
