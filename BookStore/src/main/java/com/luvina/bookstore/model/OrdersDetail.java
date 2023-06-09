@@ -2,6 +2,7 @@ package com.luvina.bookstore.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,8 +22,11 @@ public class OrdersDetail {
     @Column(name = "is_remove")
     private Boolean isRemove;
 
+    private Integer quantity;
+
     @ManyToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
+    @JsonIgnore
     private Book book;
 
     @ManyToOne
